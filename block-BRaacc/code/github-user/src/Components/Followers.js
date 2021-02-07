@@ -15,15 +15,14 @@ class Followers extends React.Component{
         .then((res) => res.json())
         .then((followers) => this.setState({followers:followers}))
     }
-    componentWillUnmount(){
-        this.setState({
-            followers:null
-        })
-    }
+
+
 
     render(){
       
         return(
+        <>
+                  <h2 className='text-2xl mx-5 my-5 font-bold text-green-600' >{this.props.match.params.username}'s Followers</h2>
             <section className='flex flex-col mx-5 '>
                 {
                     (!this.state.followers ? <Loader /> : 
@@ -45,6 +44,7 @@ class Followers extends React.Component{
                     )
                 }
             </section>
+        </>
         )
     }
 }

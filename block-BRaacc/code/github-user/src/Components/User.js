@@ -2,6 +2,8 @@ import React from 'react'
 import { Link,BrowserRouter, Route } from 'react-router-dom'
 import Loader from './Loader'
 import Repos from './Repos'
+import Following from './Following'
+import Followers from './Followers'
 
 
 class User extends React.Component{
@@ -10,9 +12,11 @@ class User extends React.Component{
         this.state = {
             user:null
         }
+        this.fetchAgain = true
     }
 
     componentDidMount(){
+        
         fetch(`https://api.github.com/users/${this.props.match.params.username}`)
         .then((res) => res.json())
         .then((user) => this.setState({user:user}))
@@ -20,18 +24,19 @@ class User extends React.Component{
         
     }
 
-    componentWillUnmount(){
-        this.setState({
-            user:null
-        })
+    componentDidUpdate(){
+            fetch(`https://api.github.com/users/${this.props.match.params.username}`)
+            .then((res) => res.json())
+            .then((user) => this.setState({user:user}))
     }
 
     render(){
         console.log(this.state.user)
         return(
+        <>
             <section className='border-4 border-gray-200'>
                 {
-                !this.state.user ? <Loader /> :
+                (!this.state.user && this.fetchAgain) ? <Loader /> :
                  <section className='flex flex-col items-center justify-center text-center my-5'>
                      <div className='flex flex-col items-center justify-center'>
                          <div>
@@ -67,6 +72,8 @@ class User extends React.Component{
                  }
               
             </section>
+
+        </>   
         )
     }
 }

@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom'
-import {BrowserRouter,Route} from 'react-router-dom'
+import {BrowserRouter,Route,Switch} from 'react-router-dom'
 
 import App from './Components/App';
 import Header from './Components/Header'
@@ -19,16 +19,19 @@ ReactDOM.render(
                 <UserSearch />
             </Route>
 
-            <Route path='/users/:username' exact  component={User} >
-                
-            </Route>
-            <Route path='/users/:username/repos' exact  component={Repos}></Route>
-            <Route path='/users/:username/followers' exact  component={Followers}></Route>
-            <Route path='/users/:username/following' exact  component={Following}></Route>
+            <switch>
+                <Route path='/users/:username'     component={User} >
+                    
+                    </Route>
+                    <Route path='/users/:username/repos'   component={Repos}></Route>
+                    <Route path='/users/:username/followers'  component={Followers}  >
+                    
+                    </Route>
+                    <Route path='/users/:username/following' exact component={Following}>
+                    
+                    </Route>
 
-            <Route path='/users/:username/repos/*' exact component={NotFound}>
-
-            </Route>
+            </switch>
 
         </section>
 

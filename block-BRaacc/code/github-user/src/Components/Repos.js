@@ -16,15 +16,13 @@ class Repos extends React.Component{
         .then((repos) => this.setState({repos:repos}))
     }
 
-    componentWillUnmount(){
-        this.setState({
-            repo:null
-        })
-    }
+
 
     render(){
-        console.log(this.state.repos)
+        
         return(
+        <>
+          <h2 className='text-2xl mx-5 my-5 font-bold text-green-600' >{this.props.match.params.username}'s Public Repos</h2>
             <section className='flex flex-col mx-5 '>
                 {
                     (!this.state.repos ? <Loader /> : 
@@ -34,7 +32,7 @@ class Repos extends React.Component{
                             this.state.repos.map((repo) => {
                                 return (
                                    <>
-                                         <a target='_blank' className='font-bold my-2'>{repo.owner.login}/{repo.name}</a>
+                                         <a target='_blank' rel="noreferrer" href={`https://github.com/${repo.owner.login}/${repo.name}`} className='font-bold my-2'>{repo.owner.login}/{repo.name}</a>
                                    </>
    
                                 )
@@ -43,6 +41,8 @@ class Repos extends React.Component{
                     )
                 }
             </section>
+
+        </>
         )
     }
 }
