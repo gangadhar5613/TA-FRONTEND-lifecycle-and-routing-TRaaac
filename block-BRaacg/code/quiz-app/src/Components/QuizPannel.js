@@ -1,6 +1,8 @@
 import React from 'react'
-import '../CSS/tailwind.css'
+import '../css/tailwind.css'
 import QuizQuiestions from './QuizQuestions'
+
+
 class QuizPannel extends React.Component{
     constructor(props){
         super(props)

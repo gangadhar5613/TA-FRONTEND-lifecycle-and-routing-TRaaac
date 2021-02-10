@@ -1,7 +1,7 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
 
-function QuizPannel (props){
+function Dashboard (props){
 
         return(
             <section className='flex flex-col bg-gray-100 items-center h-screen '>
@@ -64,4 +64,4 @@ function QuizPannel (props){
 
 }
 
-export default QuizPannel
+export default Dashboard
