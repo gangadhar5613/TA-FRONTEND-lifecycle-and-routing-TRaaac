@@ -5,7 +5,6 @@ class QuizLayout extends React.Component{
     constructor(props){
         super(props)
         this.state ={
-            questions:this.props.questions,
             lastQuestion:0,
             currentQuestion:1,
             progress:10,
@@ -30,6 +29,8 @@ class QuizLayout extends React.Component{
                
             }
         ]
+      
+      
            
         this.setState({
             userAnswers:this.state.userAnswers.concat(selectedQuestionAndAnswers),
@@ -59,8 +60,7 @@ class QuizLayout extends React.Component{
       this.state.userAnswers.forEach((selected) => {
           const questionId = selected.question
           const answer = selected.selectedAnswer
-
-          const question = this.state.questions[questionId]
+          const question = this.props.questions[questionId]
                    if(question.correct_answer === answer){
                        this.setState((state) => {
                            return{
@@ -70,19 +70,14 @@ class QuizLayout extends React.Component{
                        })
                        
                    }
-
-
       })
-
-      console.log(this.state.score)
-
     }
 
     render(){
         return(
         <>
           {
-              (this.state.isQuizSubmitted ? <QuizResult userAnswers={this.state.userAnswers} quizCategory={this.props.quizType} quizLevel={this.props.quizLevel} userScore={this.state.score} questions={this.state.questions} /> :
+              (this.state.isQuizSubmitted ? <QuizResult userAnswers={this.state.userAnswers} quizCategory={this.props.quizType} quizLevel={this.props.quizLevel} userScore={this.state.score} questions={this.props.questions} /> :
                 
             <section className='flex flex-col h-screen items-center  bg-gray-100'>
                 <div className='flex flex-row justify-evenly w-full my-10'>
@@ -104,7 +99,7 @@ class QuizLayout extends React.Component{
                     </div>
                     <div className='my-10 shadow-xl flex flex-col py-5 px-4'>
                         {
-                            this.state.questions.slice(this.state.lastQuestion,this.state.currentQuestion).map((question,index) => {
+                            this.props.questions.slice(this.state.lastQuestion,this.state.currentQuestion).map((question,index) => {
                                 const answers = [question.correct_answer,...question.incorrect_answers]
                                 return(
                                     <>

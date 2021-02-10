@@ -5,17 +5,12 @@ class QuizQuiestions extends React.Component{
     constructor(props){
         super(props)
         this.state={
-            level:this.props.level,
-            quizType:this.props.quizType,
-            quizCateory:this.props.quizCategory,
             QuizQuiestions:null
-        }
-
-        
+        }    
     }
 
     componentDidMount(){
-        fetch(`https://opentdb.com/api.php?amount=10&category=${this.state.quizCateory}&difficulty=${this.state.level}&type=multiple`)
+        fetch(`https://opentdb.com/api.php?amount=10&category=${this.props.quizCategory}&difficulty=${this.props.level}&type=multiple`)
         .then((res) => res.json())
         .then((questions) => this.setState({QuizQuiestions:questions}) )
     }
@@ -27,7 +22,7 @@ class QuizQuiestions extends React.Component{
              <section>
                  {
                      (!this.state.QuizQuiestions ? <Loader /> :
-                        <QuizLayout quizType={this.state.quizType} quizLevel={this.props.level} questions ={this.state.QuizQuiestions.results} />
+                        <QuizLayout quizType={this.props.quizType} quizLevel={this.props.level} questions ={this.state.QuizQuiestions.results} />
                         )
                  }
              </section>
